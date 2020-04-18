@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+.center {
+    text-align: center;
+	position: relative;
+}
+
+.cp_iptxt {
+	position: relative;
+    text-align: center;
+	width: 100%;
+/* 	margin: 40px 3%; */
+}
+.cp_iptxt input[type=text], textarea {
+	font: 15px/24px sans-serif;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 8px 0;
+	padding: 0.3em;
+	transition: 0.3s;
+	border: 1px solid #1b2538;
+	border-radius: 4px;
+	outline: none;
+}
+.cp_iptxt input[type=text]:focus, textarea:focus {
+	border-color: #da3c41;
+}
+
+button#submit {
+    /* 文字サイズを1.4emに指定 */
+    font-size: 1.2em;
+
+    /* 文字の太さをboldに指定 */
+    font-weight: bold;
+
+    /* 縦方向に10px、
+     * 横方向に30pxの余白を指定 */
+    padding: 6px 30px;
+
+    /* 背景色 */
+    background-color: 	green;
+
+    /* 文字色を白色に指定 */
+    color: #fff;
+
+    /* ボーダーをなくす */
+    border-style: none;
+}
+
+button#submit:hover {
+    /* 背景色 */
+    background-color: lightgreen;
+
+    /* 文字色を白色に指定 */
+    color: #fff;
+}
+
+button#dummy_button {
+    /* 文字サイズを1.4emに指定 */
+    font-size: 1.2em;
+
+    /* 文字の太さをboldに指定 */
+    font-weight: bold;
+
+    /* 縦方向に10px、
+     * 横方向に30pxの余白を指定 */
+    padding: 6px 30px;
+
+    /* 背景色 */
+    background-color: 	silver;
+
+    /* 文字色を白色に指定 */
+    color: #fff;
+
+    /* ボーダーをなくす */
+    border-style: none;
+}
+
+.cp_link {
+	text-decoration: none;
+	font-size:10px;
+	display: inline-block;
+	padding: 0.3em;
+	transition: .3s;
+	transform: scale(1);
+	color: green;
+}
+.cp_link:hover {
+	transform: scale(1.05);
+}

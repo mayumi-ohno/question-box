@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
+<link rel="stylesheet" href="../static/css/form.css" th:href="@{/css/form.css}" >
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta charset="UTF-8">
+<title>土屋くんの質問箱</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<br><br>
+<div class="center">
+	<div th:if="${error}">
+		<pre th:text="${error}" style="color:green; font-size:18px"></pre>
+	</div>
+</div>
+<form method="POST" th:action="@{/login}">
+	<table style="display:table;margin: 0 auto">
+		<tr>
+			<td>
+				<a th:href="@{/}"><img src="../static/img/login.jpg" th:src="@{/img/login.jpg}" style="width:250px"></a>
+			</td>
+			<td>
+				<div class="cp_iptxt">
+					<input type="hidden" name="id" value="1">
+					<input type="text" placeholder="Password" name="password">
+				</div>
+				<button id="submit">Login</button>
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

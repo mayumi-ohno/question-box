@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+<link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
+<link rel="stylesheet" href="../static/css/form.css" th:href="@{/css/form.css}" >
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta charset="UTF-8">
+<title>土屋くんの質問箱</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+$(function() {
+	$("#dummy_button").show();
+	$("#submit").prop("disabled",true);
+	$("#submit").hide();
+	$("#name_error").hide();
+	$("#comment_error").hide();
+	var visible_comment = false;
+	var visible_name = false;
+	
+	$("textarea").on("keyup", function(){
+		var comment = $(this).val().length
+		if(comment<3 || comment>250 || $(this).val().match(/^[ 　\r\n\t]*$/) ){
+			$("#comment_error").show();
+			 visible_comment = false;
+		}else{
+			$("#comment_error").hide();
+			 visible_comment = true;
+		}
+		button_status();
+	});
+	
+	$("input[type='text']").on("keyup", function(){
+		var name = $(this).val().length
+		if(name<2 || name>20 || $(this).val().match(/^[ 　\r\n\t]*$/)){
+			$("#name_error").show();
+			 visible_name = false;
+		}else{
+			$("#name_error").hide();
+			 visible_name = true;
+		}
+		button_status();
+	});
+	
+	function button_status() {
+		if(visible_comment && visible_name){
+			$("#submit").prop("disabled",false);
+			$("#dummy_button").hide();
+			$("#submit").show();
+		}else{
+			$("#submit").prop("disabled",true);
+			$("#submit").hide();
+			$("#dummy_button").show();
+		}
+	}
+});
+</script>
+</head>
+<body>
+<div class="center">
+	<div th:if="${posted}">
+		<pre th:text="${posted}" style="color:green; font-size:18px"></pre>
+	</div>
+	<a th:href="@{/}">
+		<img src="../static/img/title.jpg" th:src="@{/img/title.jpg}" style="width:20%">
+	</a>
+	<br>
+	<a th:href="@{/tsuchiya/questions}" class="cp_link">Are you TSUCHIYA-kun??</a><br>
+</div>
+<form method="POST" th:action="@{/post}">
+	<table style="display:table;margin: 0 auto;width:30%">
+		<tr id="name_error">
+			<td><span style="color:green">名前は2-20文字で入力してね</span></td>
+		</tr>
+		<tr>
+			<td>
+				<div class="cp_iptxt">
+					<input type="text" placeholder="ラジオネーム" name="name">
+				</div>
+			</td>
+		</tr>
+		<tr id="comment_error">
+			<td><span style="color:green">コメントは3-250文字で入力してね</span></td>
+		</tr>
+		<tr>
+			<td>
+				<textarea placeholder="コメント" rows="5" name="comment"></textarea>
+				<button type="button" id="dummy_button" disabled>投稿</button>
+				<button id="submit" onclick="return confirm('投稿してよろしいですか？\n投稿内容は閲覧・修正・削除できません。\n※土屋くんのみ閲覧することができます。')">投稿</button>
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

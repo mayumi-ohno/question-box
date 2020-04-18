@@ -1,0 +1,12 @@
+CREATE TABLE questions(
+	id serial not null,
+	name text,
+	comment text,
+	post_date timestamp,
+	constraint questions_PKC primary key (id)	
+);
+CREATE TABLE tsuchiya(
+	id serial not null,
+	password text,
+	constraint tsuchiya_PKC primary key (id)
+);
