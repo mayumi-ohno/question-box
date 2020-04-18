@@ -12,21 +12,25 @@
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script>
 $(function() {
-	$("#dummy_button").show();
 	$("#submit").prop("disabled",true);
-	$("#submit").hide();
-	$("#name_error").hide();
-	$("#comment_error").hide();
+	$("#submit").css("background-color", "silver");
 	var visible_comment = false;
 	var visible_name = false;
+	
+	  $("#submit").hover(function() {
+		    $(this).css("background-color", " lightgreen");
+		  }, function() {
+		    $(this).css("background-color", " green");
+		  });
 	
 	$("textarea").on("keyup", function(){
 		var comment = $(this).val().length
 		if(comment<3 || comment>250 || $(this).val().match(/^[ 　\r\n\t]*$/) ){
-			$("#comment_error").show();
+			$("#comment_error").css({"color":"green", "font-size":"11px"});
+			$("#comment_error").text("コメントは3-250文字で入力してね");
 			 visible_comment = false;
 		}else{
-			$("#comment_error").hide();
+			$("#comment_error").text("");
 			 visible_comment = true;
 		}
 		button_status();
@@ -35,10 +39,11 @@ $(function() {
 	$("input[type='text']").on("keyup", function(){
 		var name = $(this).val().length
 		if(name<2 || name>20 || $(this).val().match(/^[ 　\r\n\t]*$/)){
-			$("#name_error").show();
+			$("#name_error").css({"color":"green", "font-size":"11px"});
+			$("#name_error").text("名前は2-20文字で入力してね");
 			 visible_name = false;
 		}else{
-			$("#name_error").hide();
+			$("#name_error").text("");
 			 visible_name = true;
 		}
 		button_status();
@@ -46,13 +51,11 @@ $(function() {
 	
 	function button_status() {
 		if(visible_comment && visible_name){
+			$("#submit").css("background-color","green");
 			$("#submit").prop("disabled",false);
-			$("#dummy_button").hide();
-			$("#submit").show();
 		}else{
+			$("#submit").css("background-color","silver");
 			$("#submit").prop("disabled",true);
-			$("#submit").hide();
-			$("#dummy_button").show();
 		}
 	}
 });
@@ -72,7 +75,7 @@ $(function() {
 <form method="POST" th:action="@{/post}">
 	<table style="display:table;margin: 0 auto;width:30%">
 		<tr id="name_error">
-			<td><span style="color:green">名前は2-20文字で入力してね</span></td>
+			<td><span style="color:green"></span></td>
 		</tr>
 		<tr>
 			<td>
@@ -82,12 +85,11 @@ $(function() {
 			</td>
 		</tr>
 		<tr id="comment_error">
-			<td><span style="color:green">コメントは3-250文字で入力してね</span></td>
+			<td><span style="color:green"></span></td>
 		</tr>
 		<tr>
 			<td>
 				<textarea placeholder="コメント" rows="5" name="comment"></textarea>
-				<button type="button" id="dummy_button" disabled>投稿</button>
 				<button id="submit" onclick="return confirm('投稿してよろしいですか？\n投稿内容は閲覧・修正・削除できません。\n※土屋くんのみ閲覧することができます。')">投稿</button>
 			</td>
 		</tr>
