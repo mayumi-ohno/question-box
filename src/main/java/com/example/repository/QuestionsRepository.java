@@ -29,12 +29,12 @@ public class QuestionsRepository {
 		question.setName(rs.getString("name"));
 		question.setComment(rs.getString("comment"));
 		String postDate = String.valueOf(rs.getTimestamp("post_date"));
-		String year = postDate.substring(0, 4) + "/";
-		String month = postDate.substring(5, 7) + "/";
-		String day = postDate.substring(8, 10) + " ";
-		String hour = Integer.parseInt(postDate.substring(11, 13))+":";
+		String year = postDate.substring(0, 4);
+		String month = postDate.substring(5, 7);
+		String day = postDate.substring(8, 10);
+		String hour = postDate.substring(11, 13);
 		String minutes = postDate.substring(14, 16);
-		question.setPostDate(year + month + day + hour + minutes);
+		question.setPostDate(year + "/" + month + "/" + day + " " + hour + ":" + minutes);
 		return question;
 	};
 
