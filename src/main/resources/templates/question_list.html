@@ -16,6 +16,27 @@
 	crossorigin="anonymous"></script>
 </head>
 <style type="text/css">
+.btn-border {
+  display: inline-block;
+  max-width: 100px;
+  text-align: left;
+  border: 2px solid #9ec34b;
+  font-size: 11px;
+  color: #9ec34b;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 4px 8px;
+  margin: 2px;
+  border-radius: 4px;
+  transition: .4s;
+}
+
+.btn-border:hover {
+  background-color: #9ec34b;
+  border-color: #cbe585;
+  color: #FFF;
+}
+
 .cp_link {
 	text-decoration: none;
 	font-size: 15px;
@@ -65,7 +86,10 @@ th.comment, td.comment {
 		</a>
 	</div>
 	<table style="display: table; margin: 0 auto">
-		<tr><td><a th:href="@{/logout}" class="cp_link">Logout</a></td></tr>
+		<tr>
+			<td colspan="2">page：<span th:text="${pageNow}+'/'+${pagingNumbers.size()}"></span></td>
+			<td style="text-align:right"><a th:href="@{/logout}" class="cp_link">Logout</a></td>
+		</tr>
 	</table>
 	<table style="display: table; margin: 0 auto">
 		<tr>
@@ -77,6 +101,11 @@ th.comment, td.comment {
 			<td th:text="${question.postDate}" class="date">0000-01-01 00:00</td>
 			<td th:text="${question.name}" class="name">テスト太郎</td>
 			<td th:text="${question.comment}" class="comment">おはようございます</td>
+		</tr>
+		<tr>
+			<td>
+				<a  class="btn-border" th:each="number:${pagingNumbers}" th:text="${number}" th:href="@{/tsuchiya/questions?page=}+${number}"></a>
+			</td>
 		</tr>
 	</table>
 </body>
