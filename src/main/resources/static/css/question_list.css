@@ -35,8 +35,11 @@
 	transform: scale(1.05);
 }
 
-table {
+table.outer {
 	width: 70%;
+}
+table.inner {
+	width: 100%;
 }
 
 th {
@@ -46,22 +49,24 @@ th {
 
 th.date, td.date {
 	width: 20%;
-	border: 2px #808080 solid;
+	border-bottom: 2px #808080 solid;
 }
 
 th.name, td.name {
 	width: 20%;
-	border: 2px #808080 solid;
-}
-
-th.fav, td.fav {
-	width: 5%;
-/* 	border: 2px #808080 solid; */
+	border-bottom: 2px #808080 solid;
 }
 
 th.comment, td.comment {
-	width: 55%;
-	border: 2px #808080 solid;
+	width: 60%;
+	border-bottom: 2px #808080 solid;
+}
+
+#inner-comment{
+	width: 90%;
+}
+#inner-fav{
+	width: 10%;
 }
 
 .simple_square_btn8 {
