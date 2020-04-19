@@ -35,6 +35,7 @@ public class QuestionsRepository {
 		String hour = postDate.substring(11, 13);
 		String minutes = postDate.substring(14, 16);
 		question.setPostDate(year + "/" + month + "/" + day + " " + hour + ":" + minutes);
+		question.setMark(rs.getString("mark"));
 		return question;
 	};
 
@@ -44,7 +45,8 @@ public class QuestionsRepository {
 	 * @param question 質問
 	 */
 	public void insert(Question question) {
-		String sql = "INSERT INTO questions (name,comment,post_date) VALUES(:name,:comment,current_timestamp);";
+		// AWS上のデータベースのタイムゾーンが変更できないため、タイムスタンプに9時間足して日本時間に直している
+		String sql = "INSERT INTO questions (name,comment,post_date,mark) VALUES(:name,:comment,current_timestamp+interval'9 hour','☆');";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(question);
 		template.update(sql, param);
 	}
@@ -60,4 +62,37 @@ public class QuestionsRepository {
 		List<Question> questionList = template.query(sql, param, ROW_MAPPER);
 		return questionList;
 	}
+
+	/**
+	 * お気に入りの質問を取得する.
+	 * 
+	 * @return お気に入り質問一覧
+	 */
+	public List<Question> findMarked() {
+		String sql = "select * FROM questions WHERE mark='★' ORDER BY post_date DESC;";
+		SqlParameterSource param = new MapSqlParameterSource();
+		List<Question> questionList = template.query(sql, param, ROW_MAPPER);
+		if (questionList.size() == 0) {
+			return null;
+		}
+		return questionList;
+	}
+
+	/**
+	 * お気に入りフラグの切替をする.
+	 * 
+	 * @param id   質問ID
+	 * @param mark 現在のお気に入りフラグ
+	 */
+	public void updateMark(Integer id, String mark) {
+		String sql;
+		if ("★".equals(mark)) {
+			sql = "UPDATE questions SET mark='☆' WHERE id=:id;";
+		} else {
+			sql = "UPDATE questions SET mark='★' WHERE id=:id;";
+		}
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		template.update(sql, param);
+	}
+
 }

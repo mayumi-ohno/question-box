@@ -9,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.Question;
 import com.example.service.GetQuestionsService;
+import com.example.service.MarkQuestionService;
 
 /**
  * 土屋くんログイン認証に係るコントローラ.
@@ -28,6 +30,9 @@ public class LoginController {
 
 	@Autowired
 	private GetQuestionsService getQuestionsService;
+
+	@Autowired
+	private MarkQuestionService markQuestionService;
 
 	/**
 	 * ログイン画面表示.
@@ -59,19 +64,43 @@ public class LoginController {
 	 * @return 質問一覧画面
 	 */
 	@RequestMapping("/questions")
-	public String questionList(Integer page, Model model) {
-		List<Question> allQuestions = getQuestionsService.getAll();
+	public String questionList(Integer page, boolean fav, Model model) {
+		List<Question> allQuestions;
+		if (fav) {
+			allQuestions = getQuestionsService.getMarkedQuestions();
+			model.addAttribute("fav", true);
+		} else {
+			allQuestions = getQuestionsService.getAll();
+			model.addAttribute("fav", false);
+		}
+		if (Objects.isNull(allQuestions)) {
+			return "question_list";
+		}
+
 		if (Objects.isNull(page)) {
 			page = 1;
 		}
 		model.addAttribute("pageNow", page);
-		
+
 		Page<Question> questionList = getQuestionsService.createPaging(page, VIEW_SIZE, allQuestions);
 		model.addAttribute("questionList", questionList);
 
 		List<Integer> pagingNumbers = createPagingNumbers(questionList);
 		model.addAttribute("pagingNumbers", pagingNumbers);
 		return "question_list";
+	}
+
+	/**
+	 * 非同期通信で、質問のお気に入り追加・解除を行う
+	 * 
+	 * @param id   質問ID
+	 * @param mark 現在のお気に入りフラグ
+	 */
+	@RequestMapping("/mark")
+	@ResponseBody
+	public void addMark(String id, String mark) {
+		System.out.println(id);
+		markQuestionService.updateMark(Integer.parseInt(id), mark);
 	}
 
 	/**

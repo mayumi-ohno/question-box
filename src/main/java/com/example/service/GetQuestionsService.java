@@ -33,6 +33,15 @@ public class GetQuestionsService {
 	}
 
 	/**
+	 * お気に入りの質問を取得する.
+	 * 
+	 * @return 質問一覧
+	 */
+	public List<Question> getMarkedQuestions() {
+		return questionsRepository.findMarked();
+	}
+
+	/**
 	 * リクエストされたページ用の質問リストを作成する.
 	 * 
 	 * @param page         ページ数

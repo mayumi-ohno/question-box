@@ -10,3 +10,6 @@ CREATE TABLE tsuchiya(
 	password text,
 	constraint tsuchiya_PKC primary key (id)
 );
+
+-- あとからお気に入りフラグ欄追加
+ALTER TABLE questions ADD COLUMN mark character varying(1);

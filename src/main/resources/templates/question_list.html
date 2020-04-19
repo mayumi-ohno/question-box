@@ -2,8 +2,8 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
-<link rel="stylesheet" href="../static/css/form.css"
-	th:href="@{/css/form.css}">
+<link rel="stylesheet" href="../static/css/question_list.css"
+	th:href="@{/css/question_list.css}">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
@@ -15,69 +15,35 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 </head>
-<style type="text/css">
-.btn-border {
-  display: inline-block;
-  max-width: 100px;
-  text-align: left;
-  border: 2px solid #9ec34b;
-  font-size: 11px;
-  color: #9ec34b;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 4px 8px;
-  margin: 2px;
-  border-radius: 4px;
-  transition: .4s;
-}
-
-.btn-border:hover {
-  background-color: #9ec34b;
-  border-color: #cbe585;
-  color: #FFF;
-}
-
-.cp_link {
-	text-decoration: none;
-	font-size: 15px;
-	display: inline-block;
-	padding: 0.3em;
-	transition: .3s;
-	transform: scale(1);
-	color: green;
-}
-
-.cp_link:hover {
-	transform: scale(1.05);
-}
-
-table {
-	width: 70%;
-}
-
-th {
-	background-color: #6b8e23;
-	color: white;
-}
-
-th.date, td.date {
-	width: 20%;
-	border: 2px #808080 solid;
-}
-
-th.name, td.name {
-	width: 20%;
-	border: 2px #808080 solid;
-}
-
-th.comment, td.comment {
-	width: 60%;
-	border: 2px #808080 solid;
-}
-</style>
+<script>
+$(function() {
+	  
+	  $("a[name$=mark]").on("click", function(){
+// 			var hostUrl = "http://tsuchiya-box.work/questions/tsuchiya/mark";
+			var hostUrl = "http://localhost:8080/tsuchiya/mark";
+			var id = $(this).attr("name").replace("mark", "");
+			var mark= $("a[name="+id+"mark]").text();
+			
+				$.ajax({
+					url: hostUrl,
+					type: "GET",
+					dataType: "json",
+					data:{
+						id: id ,
+						mark: mark,
+					},
+					async: true
+				});
+  				if($("a[name="+id+"mark]").text() == '★'){
+  					$("a[name="+id+"mark]").text("☆");
+  				}else{
+  					$("a[name="+id+"mark]").text("★");
+  				}
+	  });
+});
+</script>
 <body>
-	<br>
-	<div class="center">
+	<div style="text-align:center">
 		<div th:if="${posted}">
 			<pre th:text="${posted}" style="color: green; font-size: 18px"></pre>
 		</div>
@@ -85,26 +51,35 @@ th.comment, td.comment {
 			th:src="@{/img/title.jpg}" style="width: 150px">
 		</a>
 	</div>
+	<br>
 	<table style="display: table; margin: 0 auto">
 		<tr>
-			<td colspan="2">page：<span th:text="${pageNow}+'/'+${pagingNumbers.size()}"></span></td>
-			<td style="text-align:right"><a th:href="@{/logout}" class="cp_link">Logout</a></td>
+			<td colspan="2">
+				<span th:if="${pagingNumbers}" th:text="'page : '+${pageNow}+'/'+${pagingNumbers.size()}"></span>
+			</td>
+			<td colspan="2" style="text-align:right">
+				<a th:href="@{/tsuchiya/questions}" th:if="${fav}" class="simple_square_btn8" >show all questions</a>
+				<a th:href="@{/tsuchiya/questions?fav=true}" th:unless="${fav}" class="simple_square_btn8" ><span style="color:orange">★</span>show favorites</a>
+			</td>
 		</tr>
 	</table>
 	<table style="display: table; margin: 0 auto">
 		<tr>
 			<th class="date">投稿日時</th>
 			<th class="name">ラジオネーム</th>
-			<th class="comment">本文</th>
+			<th class="comment" colspan="2">本文</th>
 		</tr>
 		<tr th:each="question:${questionList}">
 			<td th:text="${question.postDate}" class="date">0000-01-01 00:00</td>
 			<td th:text="${question.name}" class="name">テスト太郎</td>
 			<td th:text="${question.comment}" class="comment">おはようございます</td>
+			<td class="fav" style="text-align:center">
+				<a class="simple_square_btn8" th:text="${question.mark}" th:name="${question.id}+'mark'" style="color:orange;font-size:20px">★</a>
+			</td>
 		</tr>
 		<tr>
 			<td>
-				<a  class="btn-border" th:each="number:${pagingNumbers}" th:text="${number}" th:href="@{/tsuchiya/questions?page=}+${number}"></a>
+				<a  class="btn-border" th:each="number:${pagingNumbers}" th:text="${number}" th:href="@{/tsuchiya/questions?page=}+${number}+'&fav='+${fav}"></a>
 			</td>
 		</tr>
 	</table>

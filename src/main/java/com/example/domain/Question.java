@@ -16,6 +16,16 @@ public class Question {
 	private String comment;
 	/** 投稿日時 */
 	private String postDate;
+	/** お気に入りフラグ */
+	private String mark;
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
+	}
 
 	public Integer getId() {
 		return id;
@@ -51,7 +61,8 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", name=" + name + ", comment=" + comment + ", postDate=" + postDate + "]";
+		return "Question [id=" + id + ", name=" + name + ", comment=" + comment + ", postDate=" + postDate + ", mark="
+				+ mark + "]";
 	}
 
 }
