@@ -17,6 +17,9 @@
 </head>
  <script th:src="@{/js/question_list.js}" src="../static/js/question_list.js"></script>
 <body>
+	<div style="text-align:right">
+		<a th:href="@{/logout}" class="cp_link">Logout</a><br>
+	</div>
 	<div style="text-align:center">
 		<div th:if="${posted}">
 			<pre th:text="${posted}" style="color: green; font-size: 18px"></pre>
