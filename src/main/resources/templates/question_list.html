@@ -15,33 +15,7 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 </head>
-<script>
-$(function() {
-	  
-	  $("a[name$=mark]").on("click", function(){
-			var hostUrl = "http://tsuchiya-box.work/questions/tsuchiya/mark";
-// 			var hostUrl = "http://localhost:8080/tsuchiya/mark";
-			var id = $(this).attr("name").replace("mark", "");
-			var mark= $("a[name="+id+"mark]").text();
-			
-				$.ajax({
-					url: hostUrl,
-					type: "GET",
-					dataType: "json",
-					data:{
-						id: id ,
-						mark: mark,
-					},
-					async: true
-				});
-  				if($("a[name="+id+"mark]").text() == '★'){
-  					$("a[name="+id+"mark]").text("☆");
-  				}else{
-  					$("a[name="+id+"mark]").text("★");
-  				}
-	  });
-});
-</script>
+ <script th:src="@{/js/question_list.js}" src="../static/js/question_list.js"></script>
 <body>
 	<div style="text-align:center">
 		<div th:if="${posted}">
@@ -75,7 +49,10 @@ $(function() {
 				<table class="inner">
 					<tr>
 						<td id="inner-comment" th:text="${question.comment}" >おはようございます</td>
-						<td id="inner-fav"><a class="simple_square_btn8" th:text="${question.mark}" th:name="${question.id}+'mark'" style="color:orange;font-size:20px">★</a></td>
+						<td id="inner-fav">
+							<input type="hidden" th:value="${question.mark}"  th:id="${question.id}+'mark-status'">
+							<a class="simple_square_btn8" th:text="${question.mark}" th:name="${question.id}+'mark'" style="color:orange;font-size:20px">★</a>
+						</td>
 					</tr>
 				</table>
 			</td>

@@ -1,12 +1,12 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5432/tsuchiya-question
-#    username: postgres
-#    password: postgres
-    url: jdbc:postgresql://tsuchiya-db.ca73rkjme2bw.ap-northeast-1.rds.amazonaws.com/question_box
-    username: root
-    password: rootroot
+    url: jdbc:postgresql://localhost:5432/tsuchiya-question
+    username: postgres
+    password: postgres
+#    url: jdbc:postgresql://tsuchiya-db.ca73rkjme2bw.ap-northeast-1.rds.amazonaws.com/question_box
+#    username: root
+#    password: rootroot
 
     
     jmx:
