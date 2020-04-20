@@ -31,8 +31,8 @@
 				<span th:if="${pagingNumbers}" th:text="'page : '+${pageNow}+'/'+${pagingNumbers.size()}"></span>
 			</td>
 			<td colspan="2" style="text-align:right">
-				<a th:href="@{/tsuchiya/questions}" th:if="${fav}" class="simple_square_btn8" >show all questions</a>
-				<a th:href="@{/tsuchiya/questions?fav=true}" th:unless="${fav}" class="simple_square_btn8" ><span style="color:orange">★</span>show favorites</a>
+				<a th:href="@{/tsuchiya/questions}" th:if="${fav}" class="simple_square_btn8" >全質問を表示</a>
+				<a th:href="@{/tsuchiya/questions?fav=true}" th:unless="${fav}" class="simple_square_btn8" ><span style="color:orange">★</span>お気に入り一覧</a>
 			</td>
 		</tr>
 	</table>
@@ -63,5 +63,9 @@
 			</td>
 		</tr>
 	</table>
+<div th:if="${none}" style="text-align:center">
+	<h1>お気に入りの質問がありません</h1>
+	<span>各質問の右横にある☆マークをクリックすると<br>質問をお気に入り登録できます</span>
+</div>
 </body>
 </html>

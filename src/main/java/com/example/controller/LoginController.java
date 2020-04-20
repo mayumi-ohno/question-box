@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.Question;
 import com.example.service.GetQuestionsService;
@@ -74,6 +73,7 @@ public class LoginController {
 			model.addAttribute("fav", false);
 		}
 		if (Objects.isNull(allQuestions)) {
+			model.addAttribute("none","お気に入りの質問がありません");
 			return "question_list";
 		}
 
@@ -97,9 +97,7 @@ public class LoginController {
 	 * @param mark 現在のお気に入りフラグ
 	 */
 	@RequestMapping("/mark")
-	@ResponseBody
 	public void addMark(String id, String mark) {
-		System.out.println(id);
 		markQuestionService.updateMark(Integer.parseInt(id), mark);
 	}
 
