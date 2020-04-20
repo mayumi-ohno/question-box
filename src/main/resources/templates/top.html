@@ -10,56 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script>
-$(function() {
-	$("#submit").prop("disabled",true);
-	$("#submit").css("background-color", "silver");
-	var visible_comment = false;
-	var visible_name = false;
-	
-	  $("#submit").hover(function() {
-		    $(this).css("background-color", " lightgreen");
-		  }, function() {
-		    $(this).css("background-color", " green");
-		  });
-	
-	$("textarea").on("keyup", function(){
-		var comment = $(this).val().length
-		if(comment<3 || comment>250 || $(this).val().match(/^[ 　\r\n\t]*$/) ){
-			$("#comment_error").css({"color":"green", "font-size":"11px"});
-			$("#comment_error").text("コメントは3-250文字で入力してね");
-			 visible_comment = false;
-		}else{
-			$("#comment_error").text("");
-			 visible_comment = true;
-		}
-		button_status();
-	});
-	
-	$("input[type='text']").on("keyup", function(){
-		var name = $(this).val().length
-		if(name<2 || name>20 || $(this).val().match(/^[ 　\r\n\t]*$/)){
-			$("#name_error").css({"color":"green", "font-size":"11px"});
-			$("#name_error").text("名前は2-20文字で入力してね");
-			 visible_name = false;
-		}else{
-			$("#name_error").text("");
-			 visible_name = true;
-		}
-		button_status();
-	});
-	
-	function button_status() {
-		if(visible_comment && visible_name){
-			$("#submit").css("background-color","green");
-			$("#submit").prop("disabled",false);
-		}else{
-			$("#submit").css("background-color","silver");
-			$("#submit").prop("disabled",true);
-		}
-	}
-});
-</script>
+<script th:src="@{/js/top.js}" src="../static/js/top.js"></script>
 </head>
 <body>
 <div class="center">
@@ -91,6 +42,7 @@ $(function() {
 			<td>
 				<textarea placeholder="コメント" rows="5" name="comment"></textarea>
 				<button id="submit" onclick="return confirm('投稿してよろしいですか？\n投稿内容は閲覧・修正・削除できません。\n※土屋くんのみ閲覧することができます。')">投稿</button>
+				&nbsp;&nbsp;<a th:href="@{/questions}" class="cp_link">土屋くんお気に入りの質問を見てみる</a>
 			</td>
 		</tr>
 	</table>

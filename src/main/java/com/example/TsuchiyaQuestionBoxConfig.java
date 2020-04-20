@@ -57,7 +57,7 @@ public class TsuchiyaQuestionBoxConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().mvcMatchers("/","/post", "/tsuchiya", "/tsuchiya/login-error","insert").permitAll() // ログイン前にアクセス可とするパス群
+		http.authorizeRequests().mvcMatchers("/","/questions","/post", "/tsuchiya", "/tsuchiya/login-error","insert").permitAll() // ログイン前にアクセス可とするパス群
 				.anyRequest().authenticated(); // 上記以外のパスは、ログイン以前のアクセス不可とする
 		// LOGIN
 		http.formLogin().loginPage("/tsuchiya") // ログイン画面を表示するパス

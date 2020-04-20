@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
 <link rel="stylesheet" href="../static/css/question_list.css"
@@ -18,7 +20,7 @@
  <script th:src="@{/js/question_list.js}" src="../static/js/question_list.js"></script>
 <body>
 	<div style="text-align:right">
-		<a th:href="@{/logout}" class="cp_link">Logout</a><br>
+		<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/logout}" class="cp_link">Logout</a><br>
 	</div>
 	<div style="text-align:center">
 		<div th:if="${posted}">
@@ -33,9 +35,9 @@
 			<td colspan="2">
 				<span th:if="${pagingNumbers}" th:text="'page : '+${pageNow}+'/'+${pagingNumbers.size()}"></span>
 			</td>
-			<td colspan="2" style="text-align:right">
+			<td colspan="2" style="text-align:right" sec:authorize="hasRole('ROLE_ADMIN')">
 				<a th:href="@{/tsuchiya/questions}" th:if="${fav}" class="simple_square_btn8" >全質問を表示</a>
-				<a th:href="@{/tsuchiya/questions?fav=true}" th:unless="${fav}" class="simple_square_btn8" ><span style="color:orange">★</span>お気に入り一覧</a>
+				<a  th:href="@{/tsuchiya/questions?fav=true}" th:unless="${fav}" class="simple_square_btn8" ><span style="color:orange">★</span>お気に入り一覧</a>
 			</td>
 		</tr>
 	</table>
@@ -52,7 +54,7 @@
 				<table class="inner">
 					<tr>
 						<td id="inner-comment" th:text="${question.comment}" >おはようございます</td>
-						<td id="inner-fav">
+						<td id="inner-fav" sec:authorize="hasRole('ROLE_ADMIN')">
 							<input type="hidden" th:value="${question.mark}"  th:id="${question.id}+'mark-status'">
 							<a class="simple_square_btn8" th:text="${question.mark}" th:name="${question.id}+'mark'" style="color:orange;font-size:20px">★</a>
 						</td>
@@ -66,9 +68,6 @@
 			</td>
 		</tr>
 	</table>
-<div th:if="${none}" style="text-align:center">
-	<h1>お気に入りの質問がありません</h1>
-	<span>各質問の右横にある☆マークをクリックすると<br>質問をお気に入り登録できます</span>
-</div>
+<h1 th:if="${none}"  th:text="${none}" style="text-align:center"></h1>
 </body>
 </html>
