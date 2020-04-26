@@ -63,7 +63,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="3">
 				<a  class="btn-border" th:each="number:${pagingNumbers}" th:text="${number}" th:href="@{/tsuchiya/questions?page=}+${number}+'&fav='+${fav}"></a>
 			</td>
 		</tr>
