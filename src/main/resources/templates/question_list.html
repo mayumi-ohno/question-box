@@ -4,8 +4,8 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
-<link rel="stylesheet" href="../static/css/questions.css"
-	th:href="@{/css/questions.css}">
+<link rel="stylesheet" href="../static/css/question_list.css"
+	th:href="@{/css/question_list.css}">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
@@ -42,33 +42,25 @@
 			</td>
 		</tr>
 	</table>
-	<table style="display: table; margin: 0 auto" class="outer">
-		<tr>
-			<th class="date">投稿日時</th>
-			<th class="name">ラジオネーム</th>
-			<th class="comment">本文</th>
-		</tr>
-		<tr th:each="question:${questionList}">
-			<td th:text="${question.postDate}" class="date">0000-01-01 00:00</td>
-			<td th:text="${question.name}" class="name">テスト太郎</td>
-			<td class="comment">
-				<table class="inner">
-					<tr>
-						<td id="inner-comment" th:text="${question.comment}" >おはようございます</td>
-						<td id="inner-fav" sec:authorize="hasRole('ROLE_ADMIN')">
-							<input type="hidden" th:value="${question.mark}"  th:id="${question.id}+'mark-status'">
-							<a class="simple_square_btn8" th:text="${question.mark}" th:name="${question.id}+'mark'" style="color:orange;font-size:20px">★</a>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				<a  class="btn-border" th:each="number:${pagingNumbers}" th:text="${number}" th:href="@{/tsuchiya/questions?page=}+${number}+'&fav='+${fav}"></a>
-			</td>
-		</tr>
-	</table>
-<h1 th:if="${none}"  th:text="${none}" style="text-align:center"></h1>
+
+	<div th:each="question:${questionList}" class="questions">
+			<div th:text=" '名前：' + ${question.name}" class="name">テスト太郎</div>
+			<table class="questions_inner">
+				<tr>
+					<td th:text="${question.comment}" class="comment">おはようございます</td>
+					<td class="fav">
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="simple_square_btn8" th:text="${question.mark}" th:name="${question.id}+'mark'">★</a>
+						<input type="hidden" th:value="${question.mark}"  th:id="${question.id}+'mark-status'">
+					</td>
+				</tr>
+			</table>
+			<div th:text="${question.postDate}" class="date">0000-01-01 00:00</div>
+	</div>
+	
+	<div id="paging">
+		<a  class="btn-border" th:each="number:${pagingNumbers}" th:text="${number}" th:href="@{/tsuchiya/questions?page=}+${number}+'&fav='+${fav}"></a>
+	</div>
+	
+	<h1 th:if="${none}"  th:text="${none}" style="text-align:center"></h1>
 </body>
 </html>
