@@ -1,15 +1,61 @@
 @charset "UTF-8";
 
 .center {
-    text-align: center;
 	position: relative;
+	display:table;
+	margin: 0 auto;
+}
+ 
+
+@media only screen and (min-width: 481px) {
+	/* 	PCのみ */
+	.center {
+		width:60%;
+	}
+	
+	#loginpic{
+		float: left;
+		width:50%;
+	}
+
+	.cp_iptxt{
+		margin-top:100px;
+	}
+	
+	#form{
+		float: left;
+		width:40%;
+	}
+
+	#loginpic img{
+		width: 100%;
+	}
+}
+
+@media only screen and (max-width: 480px) {	
+	/* 	スマホのみ */
+	.center {
+	 text-align:center;
+	}
+	
+	.cp_iptxt{
+		margin-top:10px;
+	}
+	
+	#loginpic img{
+		width:40%;
+	}
+
+	#form{
+		margin: 0 auto;
+		width:80%;
+	}
 }
 
 .cp_iptxt {
 	position: relative;
     text-align: center;
 	width: 100%;
-/* 	margin: 40px 3%; */
 }
 .cp_iptxt input[type=text], input[type=password], textarea {
 	font: 15px/24px sans-serif;
@@ -27,33 +73,9 @@
 }
 
 button#submit {
-    /* 文字サイズを指定 */
     font-size: 1.2em;
-
-    /* 文字の太さをboldに指定 */
     font-weight: bold;
-
-    /* 縦方向に10px、
-     * 横方向に30pxの余白を指定 */
     padding: 6px 30px;
-
-    /* 文字色を白色に指定 */
     color: #fff;
-
-    /* ボーダーをなくす */
     border-style: none;
-}
-
-
-.cp_link {
-	text-decoration: none;
-	font-size:10px;
-	display: inline-block;
-	padding: 0.3em;
-	transition: .3s;
-	transform: scale(1);
-	color: green;
-}
-.cp_link:hover {
-	transform: scale(1.05);
 }

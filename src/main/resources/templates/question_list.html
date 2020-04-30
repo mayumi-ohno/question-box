@@ -4,8 +4,8 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
-<link rel="stylesheet" href="../static/css/question_list.css"
-	th:href="@{/css/question_list.css}">
+<link rel="stylesheet" href="../static/css/questions.css"
+	th:href="@{/css/questions.css}">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
@@ -16,8 +16,9 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-</head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
  <script th:src="@{/js/question_list.js}" src="../static/js/question_list.js"></script>
+</head>
 <body>
 	<div style="text-align:right">
 		<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/logout}" class="cp_link">Logout</a><br>
@@ -26,7 +27,7 @@
 		<div th:if="${posted}">
 			<pre th:text="${posted}" style="color: green; font-size: 18px"></pre>
 		</div>
-		<a th:href="@{/}"> <img src="../static/img/title.jpg" th:src="@{/img/title.jpg}" style="width: 150px">
+		<a th:href="@{/}"> <img src="../static/img/title.jpg" th:src="@{/img/title.jpg}" id="mainpic">
 		</a>
 	</div>
 	<br>

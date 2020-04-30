@@ -2,7 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"> 
 <head>
 <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
-<link rel="stylesheet" href="../static/css/form.css" th:href="@{/css/form.css}" >
+<link rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}" >
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
@@ -22,29 +22,26 @@ $(function() {
 		  });
 });
 </script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
 </head>
 <body>
 <br><br>
 <div class="center">
-	<div th:if="${error}">
-		<pre th:text="${error}" style="color:green; font-size:18px"></pre>
-	</div>
-</div>
 <form method="POST" th:action="@{/login}">
-	<table style="display:table;margin: 0 auto">
-		<tr>
-			<td>
-				<a th:href="@{/}"><img src="../static/img/login.jpg" th:src="@{/img/login.jpg}" style="width:250px"></a>
-			</td>
-			<td>
-				<div class="cp_iptxt">
-					<input type="hidden" name="id" value="1">
-					<input type="password" placeholder="Password" name="password">
-				</div>
-				<button id="submit">Login</button>
-			</td>
-		</tr>
-	</table>
+	<div id="loginpic">
+		<a th:href="@{/}"><img src="../static/img/login.jpg" th:src="@{/img/login.jpg}"></a>
+	</div>
+	<div id="form">
+		<div class="cp_iptxt">
+			<div th:if="${error}">
+				<pre th:text="${error}" style="color:green; font-size:18px"></pre>
+			</div>
+			<input type="hidden" name="id" value="1">
+			<input type="password" placeholder="Password" name="password">
+		</div>
+		<button id="submit">Login</button>
+	</div>
 </form>
+</div>
 </body>
 </html>

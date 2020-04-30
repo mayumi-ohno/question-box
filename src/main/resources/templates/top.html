@@ -2,7 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"> 
 <head>
 <link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}">
-<link rel="stylesheet" href="../static/css/form.css" th:href="@{/css/form.css}" >
+<link rel="stylesheet" href="../static/css/top.css" th:href="@{/css/top.css}" >
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
@@ -11,6 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script th:src="@{/js/top.js}" src="../static/js/top.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
 </head>
 <body>
 <div class="center">
@@ -18,13 +19,13 @@
 		<pre th:text="${posted}" style="color:green; font-size:18px"></pre>
 	</div>
 	<a th:href="@{/}">
-		<img src="../static/img/title.jpg" th:src="@{/img/title.jpg}" style="width:20%">
+		<img src="../static/img/title.jpg" th:src="@{/img/title.jpg}" id="mainpic">
 	</a>
 	<br>
 	<a th:href="@{/tsuchiya/questions}" class="cp_link">Are you TSUCHIYA-kun??</a><br>
 </div>
 <form method="POST" th:action="@{/post}">
-	<table style="display:table;margin: 0 auto;width:30%">
+	<table id="forms">
 		<tr id="name_error">
 			<td><span style="color:green"></span></td>
 		</tr>

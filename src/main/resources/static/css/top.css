@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+.center {
+    text-align: center;
+	position: relative;
+}
+
+table#forms{
+	display:table;
+	margin: 0 auto;
+}
+
+@media only screen and (min-width: 481px) {
+	/* 	PCのみ */
+	table#forms{
+		width:30%;
+	}
+	#mainpic{
+		width:20%;
+	}
+}
+
+
+@media only screen and (max-width: 480px) {	
+	/* 	スマホのみ */
+	table#forms{
+		display:table;
+		margin: 0 auto;
+		width:90%;
+	}
+	
+	#mainpic{
+		width:45%;
+	}
+}
+
+.cp_iptxt {
+	position: relative;
+    text-align: center;
+	width: 100%;
+}
+
+.cp_iptxt input[type=text], input[type=password], textarea {
+	font: 15px/24px sans-serif;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 8px 0;
+	padding: 0.3em;
+	transition: 0.3s;
+	border: 1px solid #1b2538;
+	border-radius: 4px;
+	outline: none;
+}
+.cp_iptxt input[type=text]:focus, input[type=password]:focus, textarea:focus {
+	border-color: #da3c41;
+}
+
+button#submit {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 6px 30px;
+    color: #fff;
+    border-style: none;
+}
+
+.cp_link {
+	text-decoration: none;
+	font-size:10px;
+	display: inline-block;
+	padding: 0.3em;
+	transition: .3s;
+	transform: scale(1);
+	color: green;
+}
+.cp_link:hover {
+	transform: scale(1.05);
+}
